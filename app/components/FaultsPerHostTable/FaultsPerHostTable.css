@@ -1,0 +1,28 @@
+.ant-pro-table-list-toolbar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  width: 100%;
+}
+
+.ant-space.ant-space-horizontal.ant-space-align-center.ant-pro-table-list-toolbar-right{
+  align-items: baseline;
+}
+
+table .ant-table-cell .ant-tag {
+  padding:3px 12px;
+  font-weight: 500;
+}
+
+.search-filters-button {
+  margin-right: 10px;
+}
+
+.CsvButton {
+  margin-left: 15px;
+}
+
+.advanced-table-header>.advanced-table-header-defaults>.cm-select-button> .ant-select-selector:hover {
+  cursor: pointer;
+}
+

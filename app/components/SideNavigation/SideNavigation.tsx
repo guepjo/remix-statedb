@@ -11,24 +11,6 @@ import { Layout, Menu } from "antd";
 import React from "react";
 const { Sider } = Layout;
 
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-  (icon, index) => {
-    const key = String(index + 1);
-    return {
-      key: `sub${key}`,
-      icon: React.createElement(icon),
-      label: `subnav ${key}`,
-      children: new Array(4).fill(null).map((_, j) => {
-        const subKey = index * 4 + j + 1;
-        return {
-          key: subKey,
-          label: `option${subKey}`,
-        };
-      }),
-    };
-  }
-);
-
 export const SideMenu = () => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
   const toggleSidebar = () => {
@@ -37,12 +19,11 @@ export const SideMenu = () => {
 
   return (
     <Sider
-      width={60}
       className="site-layout-background"
       collapsible
       collapsed={isSidebarOpen}
       onCollapse={toggleSidebar}
-      collapsedWidth={64}
+      collapsedWidth={44}
     >
       <div
         data-testid="side-navbar"

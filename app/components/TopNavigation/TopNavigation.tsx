@@ -1,13 +1,15 @@
 import { Layout, Menu } from "antd";
+import Profile from "../UserProfile/profile";
 import React from "react";
+import { LDAPUser } from "~/types";
+
+type TopNavigationProps = {
+  user?: LDAPUser;
+};
 
 const { Header } = Layout;
-const items1 = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
 
-const TopNavigation = () => (
+const TopNavigation = (props: TopNavigationProps) => (
   <nav
     className="TopNavigation"
     data-testid="TopNavigation"
@@ -18,6 +20,9 @@ const TopNavigation = () => (
     }}
   >
     header
+    <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+      <Profile />
+    </div>
   </nav>
 );
 

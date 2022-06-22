@@ -12,10 +12,10 @@ const columns = [
   {
     title: "Age",
     dataIndex: "age",
-    // sorter: {
-    //   compare: (a, b) => a.createdBy - b.createdBy,
-    //   multiple: 3,
-    // },
+    sorter: {
+      compare: (a, b) => a.age - b.age,
+      multiple: 3,
+    },
   },
   {
     title: "Department",
@@ -25,14 +25,6 @@ const columns = [
     //   multiple: 2,
     // },
   },
-  //   {
-  //     title: "Location",
-  //     dataIndex: "location",
-  //     // sorter: {
-  //     //   compare: (a, b) => a.english - b.english,
-  //     //   multiple: 1,
-  //     // },
-  //   },
 ];
 
 const onChange = (pagination, filters, sorter, extra) => {

@@ -1,0 +1,28 @@
+export type LDAPUser = {
+  city: string;
+  cn: string;
+  country: string;
+  department: string;
+  departmentNumber: string;
+  dn: string;
+  email: string;
+  employeeId: string;
+  employeeType: string;
+  firstname: string;
+  fullname: string;
+  lastname: string;
+  mailNickname: string;
+  mobileNumber: string;
+  office: string;
+  postalCode: string;
+  sAMAccountName: string;
+  startDate: string;
+  state: string;
+  streetAddress: string;
+  title: string;
+  urn: string;
+  userPrincipalName: string;
+  username: string;
+  _direct_reports: Array<string[]>;
+  _manager: string[];
+};
