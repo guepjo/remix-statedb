@@ -3,7 +3,7 @@ import { Button, Divider } from "antd";
 import SideNavigation from "~/components/SideNavigation/SideNavigation";
 import TopNavigation from "~/components/TopNavigation/TopNavigation";
 import FaultSearchPage from "~/pages/FaultSearchPage/FaultSearchPage";
-import AppLayout from "~/layout/app-layout";
+import AppLayout from "~/layout/AppLayout";
 import { json, redirect } from "@remix-run/node";
 import { getEmployees } from "~/models/employee.server";
 import { useLoaderData } from "@remix-run/react";
@@ -19,7 +19,7 @@ export async function loader({ request }) {
 const Search = (): JSX.Element => {
   //const { currentUser, login, logout } = useAuth();
   const { Employees } = useLoaderData<LoaderData>();
-  console.log(Employees);
+  //console.log(Employees);
 
   return (
     <>

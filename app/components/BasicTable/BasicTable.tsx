@@ -40,7 +40,7 @@ const onChange = (pagination, filters, sorter, extra) => {
 };
 
 const BasicTable = (prop: BasicTableProps) => {
-  console.log("basic table", prop.data);
+  //console.log("basic table", prop.data);
 
   return <Table columns={columns} dataSource={prop.data} onChange={onChange} />;
 };

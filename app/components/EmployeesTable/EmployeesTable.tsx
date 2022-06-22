@@ -1,8 +1,10 @@
+import { PaginationProps } from "antd";
 import type { Employees } from "~/types/data";
 import { AdvancedTable } from "../AdvancedTable";
 
 type EmployeesTableProps = {
   data: any;
+  tablePagination: PaginationProps;
 };
 
 const columns = [
@@ -43,7 +45,11 @@ const columns = [
 const EmployeesTable = (props: EmployeesTableProps) => {
   return (
     <>
-      <AdvancedTable dataSource={props.data} columns={columns} />
+      <AdvancedTable
+        dataSource={props.data}
+        columns={columns}
+        tablePagination={props.tablePagination}
+      />
     </>
   );
 };
