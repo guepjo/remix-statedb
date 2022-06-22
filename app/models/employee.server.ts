@@ -1,9 +1,4 @@
-type Employees = {
-  name: string;
-  age: number;
-  department: string;
-  key: number;
-};
+import { Employees } from "~/types/data";
 
 export async function getEmployees(): Promise<Array<Employees>> {
   return [

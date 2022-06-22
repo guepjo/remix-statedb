@@ -29,7 +29,7 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   }
 );
 
-export const SideMenu = () => {
+export const SideNavigation = () => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -67,4 +67,4 @@ export const SideMenu = () => {
   );
 };
 
-export default SideMenu;
+export default SideNavigation;

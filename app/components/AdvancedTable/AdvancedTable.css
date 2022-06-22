@@ -1,0 +1,41 @@
+/* Remove default list styles from 'ul' element */
+.advanced-table-row-list {
+  list-style: none;
+  padding: 0;
+}
+
+
+.advanced-table-header-defaults {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
+}
+
+.advanced-table-header {
+  padding-bottom: 10px;
+  display: flex;
+}
+
+/* input[type='date_filter_by']{
+  width: 12px;
+} */
+
+/* AntDesign's Date Picker */
+.ant-picker.ant-picker-range {
+  width: 100%;
+}
+
+/* Make table header darker */
+[data-theme='light'] .advanced-table thead tr th {
+  background-color: #eeeaea;
+}
+
+/* Make odd table rows slightly contrast the even rows */
+[data-theme='light'] .advanced-table tr:nth-child(odd) {
+  background-color: #faf9f9 !important;
+}
+/* When hovering over the constrasted cell */
+[data-theme='light'] .advanced-table .ant-table-cell-row-hover  {
+  background-color: #f2efef !important;
+}
