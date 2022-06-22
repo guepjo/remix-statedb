@@ -25,10 +25,10 @@ const columns = [
     title: "Department",
     dataIndex: "department",
     visible: true,
-    // sorter: {
-    //   compare: (a, b) => a.math - b.math,
-    //   multiple: 2,
-    // },
+    sorter: {
+      compare: (a, b) => a.department > b.department,
+      multiple: 2,
+    },
   },
   //   {
   //     title: "Location",
