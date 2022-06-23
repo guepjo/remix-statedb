@@ -1,14 +1,12 @@
 import React from "react";
 import { Button, Checkbox, Popover, Tooltip } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
-import { FaultsPerHostTableColumn } from "components/FaultsPerHostTable/TableColumns";
-import { FaultsTableColumn } from "components/FaultsTable/TableColumns";
+//import { FaultsPerHostTableColumn } from "components/FaultsPerHostTable/TableColumns";
+import { FaultsTableColumn } from "~/components/EmployeesTable/TableColumns";
 
 type TableSettingsIconButtonProps = {
-  tableColumns: FaultsPerHostTableColumn[] | FaultsTableColumn[];
-  handleToggleTableColumnVisbility: (
-    column: FaultsPerHostTableColumn | FaultsTableColumn
-  ) => void;
+  tableColumns: FaultsTableColumn[];
+  handleToggleTableColumnVisbility: (column: FaultsTableColumn) => void;
   handleResetTableColumnVisibility: () => void;
 };
 

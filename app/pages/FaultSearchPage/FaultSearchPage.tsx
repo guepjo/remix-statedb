@@ -6,6 +6,7 @@ import {
 } from "antd/lib/table/interface";
 import BasicTable from "~/components/BasicTable/BasicTable";
 import EmployeesTable from "~/components/EmployeesTable/EmployeesTable";
+import { FaultsTableColumn } from "~/components/EmployeesTable/TableColumns";
 import {
   DEFAULT_GET_FAULTS_QUERY_PARAMS,
   useGetFaultsQueryParams,
@@ -13,6 +14,7 @@ import {
 type FaultSearchProps = {
   pageData: any;
   key: string;
+  columns: FaultsTableColumn[];
 };
 
 const FaultSearchPage = (props: FaultSearchProps) => {
@@ -81,6 +83,7 @@ const FaultSearchPage = (props: FaultSearchProps) => {
       key="basictable"
       tablePagination={tablePaginationSettings}
       handleTableChange={handleTableChange}
+      columns={props.columns}
     />
   );
 };

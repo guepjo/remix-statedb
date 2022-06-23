@@ -42,7 +42,7 @@ export const SideNavigation = () => {
       collapsible
       collapsed={isSidebarOpen}
       onCollapse={toggleSidebar}
-      collapsedWidth={64}
+      collapsedWidth={44}
     >
       <div
         data-testid="side-navbar"

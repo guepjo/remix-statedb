@@ -7,6 +7,7 @@ import AppLayout from "~/layout/AppLayout";
 import { json, redirect } from "@remix-run/node";
 import { getEmployees } from "~/models/employee.server";
 import { useLoaderData } from "@remix-run/react";
+import { TABLE_COLUMNS } from "~/components/EmployeesTable/TableColumns";
 
 type LoaderData = {
   Employees: Awaited<ReturnType<typeof getEmployees>>;
@@ -26,7 +27,13 @@ const Search = (): JSX.Element => {
       <AppLayout
         topNav={<TopNavigation />}
         sideNav={<SideNavigation />}
-        content={<FaultSearchPage pageData={Employees} key="faultpage" />}
+        content={
+          <FaultSearchPage
+            pageData={Employees}
+            key="faultpage"
+            columns={TABLE_COLUMNS}
+          />
+        }
       />
     </>
   );
