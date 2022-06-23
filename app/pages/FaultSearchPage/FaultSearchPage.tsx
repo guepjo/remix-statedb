@@ -1,4 +1,4 @@
-import { PaginationProps, TablePaginationConfig } from "antd";
+import { PageHeader, PaginationProps, TablePaginationConfig } from "antd";
 import {
   FilterValue,
   SorterResult,
@@ -82,6 +82,28 @@ const FaultSearchPage = (props: FaultSearchProps) => {
   return (
     <>
       <PageBreadcrumb route={"/search"} />
+
+      <PageHeader
+        title="Fault Search"
+        // help={
+        //   <>
+        //     <p>
+        //       <b>Fault Search</b> enables users to search for all faults from deadpool-api. <br />
+        //       <br />
+        //       For more info on how this page work, consider looking at the following links: <br />
+        //       <a href={FMALRunbookURL.url} target="_blank" rel="noreferrer">
+        //         <code>{FMALRunbookURL.shortText}</code>
+        //       </a>
+        //     </p>
+        //     <p>
+        //       <a href={getFMALAPIDocsURL().url} target="_blank" rel="noreferrer">
+        //         <code>API docs</code>
+        //       </a>
+        //     </p>
+        //   </>
+        // }
+      />
+
       <EmployeesTable
         data={props.pageData}
         key="basictable"
