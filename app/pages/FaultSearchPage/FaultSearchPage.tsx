@@ -16,7 +16,7 @@ type FaultSearchProps = {
   pageData: any;
   key: string;
   columns: FaultsTableColumn[];
-  pageBreadCrumb: React.ReactNode;
+  route?: string;
 };
 
 const FaultSearchPage = (props: FaultSearchProps) => {
@@ -81,7 +81,7 @@ const FaultSearchPage = (props: FaultSearchProps) => {
   console.log("fault page", props.pageData);
   return (
     <>
-      <PageBreadcrumb route={"Search"} />
+      <PageBreadcrumb route={"/search"} />
       <EmployeesTable
         data={props.pageData}
         key="basictable"

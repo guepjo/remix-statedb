@@ -31,11 +31,13 @@ const PageBreadcrumb = (prop: PageBreadcrumbProp) => {
         </AntBreadcrumb.Item>
 
         {pathSnippets.map((path: string, index: number) => {
-          const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
-          const isLast = pathSnippets.length - 1 === index;
-          const name = getOr(path, path, pathToNameMap);
+          // const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+          // const isLast = pathSnippets.length - 1 === index;
+          // const name = getOr(path, path, pathToNameMap);
+          // console.log("url", url);
+          // console.log("isLast", isLast);
 
-          const formattedName = !prop.route.includes("Search") ? (
+          const formattedName = !prop.route.includes("search") ? (
             <>
               <span style={{ fontWeight: 500, marginRight: ".45rem" }}>
                 Hostname:
@@ -55,12 +57,16 @@ const PageBreadcrumb = (prop: PageBreadcrumbProp) => {
               )}
             </>
           ) : (
-            startCase(name)
+            startCase("Fault" + prop.route)
           );
 
           return (
-            <AntBreadcrumb.Item key={url}>
-              {isLast ? formattedName : <Link to={url}>{formattedName}</Link>}
+            <AntBreadcrumb.Item key={prop.route}>
+              {!prop.route.includes("host") ? (
+                formattedName
+              ) : (
+                <Link to={prop.route}>{formattedName}</Link>
+              )}
             </AntBreadcrumb.Item>
           );
         })}
