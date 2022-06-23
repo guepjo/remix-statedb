@@ -1,10 +1,21 @@
-import { PaginationProps } from "antd";
+import { PaginationProps, TablePaginationConfig } from "antd";
+import {
+  FilterValue,
+  SorterResult,
+  TableCurrentDataSource,
+} from "antd/lib/table/interface";
 import type { Employees } from "~/types/data";
 import { AdvancedTable } from "../AdvancedTable";
 
 type EmployeesTableProps = {
   data: any;
   tablePagination: PaginationProps;
+  handleTableChange: (
+    pagination: TablePaginationConfig,
+    filters: Record<string, FilterValue | null>,
+    sorter: SorterResult<any> | SorterResult<any>[],
+    extra: TableCurrentDataSource<any>
+  ) => void;
 };
 
 const columns = [
@@ -32,14 +43,6 @@ const columns = [
       multiple: 2,
     },
   },
-  //   {
-  //     title: "Location",
-  //     dataIndex: "location",
-  //     // sorter: {
-  //     //   compare: (a, b) => a.english - b.english,
-  //     //   multiple: 1,
-  //     // },
-  //   },
 ];
 
 const EmployeesTable = (props: EmployeesTableProps) => {
@@ -49,6 +52,7 @@ const EmployeesTable = (props: EmployeesTableProps) => {
         dataSource={props.data}
         columns={columns}
         tablePagination={props.tablePagination}
+        handleTableChange={props.handleTableChange}
       />
     </>
   );
