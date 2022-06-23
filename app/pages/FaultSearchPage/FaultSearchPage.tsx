@@ -7,6 +7,7 @@ import {
 import BasicTable from "~/components/BasicTable/BasicTable";
 import EmployeesTable from "~/components/EmployeesTable/EmployeesTable";
 import { FaultsTableColumn } from "~/components/EmployeesTable/TableColumns";
+import { PageBreadcrumb } from "~/components/PageBreadcrumb";
 import {
   DEFAULT_GET_FAULTS_QUERY_PARAMS,
   useGetFaultsQueryParams,
@@ -15,6 +16,7 @@ type FaultSearchProps = {
   pageData: any;
   key: string;
   columns: FaultsTableColumn[];
+  pageBreadCrumb: React.ReactNode;
 };
 
 const FaultSearchPage = (props: FaultSearchProps) => {
@@ -78,13 +80,16 @@ const FaultSearchPage = (props: FaultSearchProps) => {
   };
   console.log("fault page", props.pageData);
   return (
-    <EmployeesTable
-      data={props.pageData}
-      key="basictable"
-      tablePagination={tablePaginationSettings}
-      handleTableChange={handleTableChange}
-      columns={props.columns}
-    />
+    <>
+      <PageBreadcrumb route={"Search"} />
+      <EmployeesTable
+        data={props.pageData}
+        key="basictable"
+        tablePagination={tablePaginationSettings}
+        handleTableChange={handleTableChange}
+        columns={props.columns}
+      />
+    </>
   );
 };
 

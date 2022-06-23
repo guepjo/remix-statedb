@@ -69,7 +69,7 @@ export const TABLE_COLUMNS: FaultsTableColumn[] = [
     dataIndex: "age",
     visible: true,
     key: "age",
-    defaultSortOrder: "descend",
+    defaultSortOrder: "ascend",
     sorter: {
       compare: (a, b) => a.age - b.age,
       multiple: 3,

@@ -1,0 +1,14 @@
+.PageBreadcrumb {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+/* *************************************** */
+/* Dark Mode                               */
+/* *************************************** */
+
+.PageBreadcrumb .ant-breadcrumb {
+  font-size: 16px !important;
+}
