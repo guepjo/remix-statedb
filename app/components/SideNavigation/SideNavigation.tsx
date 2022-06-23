@@ -37,7 +37,7 @@ export const SideNavigation = () => {
 
   return (
     <Sider
-      width={60}
+      //width={60}
       className="site-layout-background"
       collapsible
       collapsed={isSidebarOpen}
@@ -56,10 +56,10 @@ export const SideNavigation = () => {
       >
         <Menu mode="inline">
           <Menu.Item key="1" icon={<HddOutlined style={{ fontSize: 20 }} />}>
-            <Link to="search">Hardware Faults</Link>
+            <Link to="/search">Hardware Faults</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<RobotOutlined style={{ fontSize: 20 }} />}>
-            <Link to="search/host">Faults Per Host</Link>
+            <Link to="/search/host">Faults Per Host</Link>
           </Menu.Item>
         </Menu>
       </div>
