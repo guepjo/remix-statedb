@@ -9,6 +9,7 @@ import { AdvancedTable } from "../AdvancedTable";
 import TableSettingsIconButton from "~/components/AdvancedTable/TableSettingsIconButton";
 import { FaultsTableColumn } from "./TableColumns";
 import React from "react";
+import TableSearchFiltersButton from "../AdvancedTable/TableSearchFiltersButton";
 
 type EmployeesTableProps = {
   data: any;
@@ -79,6 +80,8 @@ const EmployeesTable = (props: EmployeesTableProps) => {
         TableHeader={
           <>
             <div className="advanced-table-header">
+              <TableSearchFiltersButton data={props.data} />
+
               <TableSettingsIconButton
                 tableColumns={tableColumns}
                 handleToggleTableColumnVisbility={

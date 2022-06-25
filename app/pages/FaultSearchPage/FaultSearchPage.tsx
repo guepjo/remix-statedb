@@ -78,7 +78,7 @@ const FaultSearchPage = (props: FaultSearchProps) => {
     current: parseInt(faultsQueryParams.start_page as string, 10) as number,
     pageSize: parseInt(faultsQueryParams.page_size as string, 10) as number,
   };
-  console.log("fault page", props.pageData);
+  //console.log("fault page", props.pageData);
   return (
     <>
       <PageBreadcrumb route={"/search"} />

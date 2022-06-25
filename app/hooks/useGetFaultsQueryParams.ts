@@ -14,22 +14,9 @@ const START_PAGE_DEFAULT = "1";
  * code, before we actually submit our API call to the backend.
  */
 export type GetFaultsURLQueryParams = {
-  actionable?: string;
-  application?: string;
-  check_id?: string;
-  cm_id?: string;
-  created_by?: string;
-  date_filter?: string;
-  detection_system?: string;
-  environment?: string;
-  fabric?: string;
-  fabric_group?: string;
-  fault_type?: string;
-  hostname?: string;
-  inops_filters?: string;
-  location?: string;
-  site?: string;
-  team?: string;
+  name?: string;
+  department?: string;
+  age?: string;
   // Default query param values below; we will populate the URL with if the user has landed on the page without query params
   cm_status?: string;
   page_size?: string;

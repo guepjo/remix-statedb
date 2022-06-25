@@ -17,7 +17,7 @@ const TopNavigation = () => (
       padding: "8px 16px",
     }}
   >
-    header
+    Top Navigation
   </nav>
 );
 
