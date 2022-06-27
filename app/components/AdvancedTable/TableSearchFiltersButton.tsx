@@ -98,6 +98,7 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
           id="new-fault-form"
           onFinish={(formFieldValues) => {
             searchFilterForm.handleFormSubmit(formFieldValues);
+            console.log("form field avlues", formFieldValues);
           }}
           //method="post"
           validateMessages={validateMessages}

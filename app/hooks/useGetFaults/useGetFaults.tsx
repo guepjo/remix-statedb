@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, UseQueryOptions } from "react-query";
 import { notification } from "antd";
 import { useSearchParams } from "react-router-dom";
 // import { FaultAPIResponse } from "types";
 import { APIErrorMessage } from "~/components/APIErrorMessage";
-import { FaultsService } from "services";
+// import { FaultsService } from "services";
 import { RQ_QUERY_KEY } from "~/utils";
 import { GetFaultsURLQueryParams } from "~/hooks/useGetFaultsQueryParams";
 import {
   getformattedFaultsQueryParams,
   GetFaultsQueryParams,
 } from "./utils/formatFaultsQueryParams";
+import { Employees } from "~/types/data";
 
 /**
  * @description
@@ -50,6 +51,7 @@ export const useGetFaults = (
    * the data, but we don't want to update the URL.
    */
   shouldUpdateURL = true,
+  data: Employees[],
   configOptions: UseQueryOptions<any> = {}
 ) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -75,20 +77,103 @@ export const useGetFaults = (
     }
   }, [paramsString, setSearchParams, shouldUpdateURL]);
 
-  const response = useQuery({
-    queryKey: [RQ_QUERY_KEY.useGetFaults, paramsString],
-    queryFn: () => FaultsService.getFaults(paramsString),
-    onError: (error) => {
-      console.error(`[${RQ_QUERY_KEY.useGetFaults}]: `, error);
-      notification.error({
-        key: `${RQ_QUERY_KEY.useGetFaults}-error-${paramsString}`,
-        message: "Error fetching faults",
-        description: <APIErrorMessage />,
-      });
-    },
-    keepPreviousData: true,
-    ...configOptions,
-  });
+  const [searchedArray, setSearchedArray] = React.useState(data);
+  let searchedName: Employees[] = [];
+  const searchedTotal: Employees[] = [];
+  console.log(data);
 
-  return response;
+  if (formattedQueryParams.name) {
+    data.forEach((d: Employees) => {
+      Object.values(d).every((onlyValues, valIndex) => {
+        if (
+          d.name
+            .toLowerCase()
+            .includes(
+              formattedQueryParams.name
+                ? formattedQueryParams.name.toLowerCase()
+                : d.name.toLowerCase()
+            )
+        ) {
+          searchedName.push(d);
+        }
+      });
+    });
+    //setSearchedArray(searchedData);
+  } else {
+    searchedName = data;
+  }
+  let searchedAge: Employees[] = [];
+
+  if (formattedQueryParams.age) {
+    data.forEach((d: Employees) => {
+      Object.values(d).every((onlyValues, valIndex) => {
+        if (
+          d.age
+            .toString()
+            .includes(
+              formattedQueryParams.age
+                ? formattedQueryParams.age.toLowerCase()
+                : d.age.toString()
+            )
+        ) {
+          searchedAge.push(d);
+        }
+      });
+    });
+    //setSearchedArray(searchedData);
+  } else {
+    searchedAge = data;
+  }
+
+  let searchedDep: Employees[] = [];
+
+  if (formattedQueryParams.department) {
+    data.forEach((d: Employees) => {
+      Object.values(d).every((onlyValues, valIndex) => {
+        if (
+          d.department
+            .toLowerCase()
+            .includes(
+              formattedQueryParams.department
+                ? formattedQueryParams.department.toLowerCase()
+                : d.department
+            )
+        ) {
+          searchedDep.push(d);
+        }
+      });
+    });
+    //setSearchedArray(searchedData);
+  } else {
+    searchedDep = data;
+  }
+
+  data.forEach((d: Employees) => {
+    if (
+      searchedAge.includes(d) &&
+      searchedName.includes(d) &&
+      searchedDep.includes(d)
+    ) {
+      searchedTotal.push(d);
+    }
+  });
+  //setSearchedArray(searchedTotal);
+
+  // const response = useQuery({
+  //   queryKey: [RQ_QUERY_KEY.useGetFaults, paramsString],
+  //   queryFn: () => searchedTotal, //FaultsService.getFaults(paramsString),
+  //   onError: (error) => {
+  //     console.error(`[${RQ_QUERY_KEY.useGetFaults}]: `, error);
+  //     notification.error({
+  //       key: `${RQ_QUERY_KEY.useGetFaults}-error-${paramsString}`,
+  //       message: "Error fetching faults",
+  //       description: <APIErrorMessage />,
+  //     });
+  //   },
+  //   keepPreviousData: true,
+  //   ...configOptions,
+  // });
+
+  console.log("use get fault", searchedTotal);
+  return searchedTotal; //response
 };

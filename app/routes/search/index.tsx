@@ -8,6 +8,8 @@ import { json, redirect } from "@remix-run/node";
 import { getEmployees } from "~/models/employee.server";
 import { useLoaderData } from "@remix-run/react";
 import { TABLE_COLUMNS } from "~/components/EmployeesTable/TableColumns";
+import { useGetFaults } from "~/hooks/useGetFaults";
+import { useGetFaultsQueryParams } from "~/hooks/useGetFaultsQueryParams";
 
 type LoaderData = {
   Employees: Awaited<ReturnType<typeof getEmployees>>;
@@ -19,7 +21,11 @@ export async function loader({ request }) {
 
 const Search = (): JSX.Element => {
   //const { currentUser, login, logout } = useAuth();
+  const [faultsQueryParams, setSearchParams] = useGetFaultsQueryParams();
+
   const { Employees } = useLoaderData<LoaderData>();
+  const getFaultsInfo = useGetFaults({ ...faultsQueryParams }, true, Employees);
+  const tableData = getFaultsInfo;
   //console.log(Employees);
 
   return (
@@ -29,7 +35,7 @@ const Search = (): JSX.Element => {
         sideNav={<SideNavigation />}
         content={
           <FaultSearchPage
-            pageData={Employees}
+            pageData={tableData}
             key="faultpage"
             columns={TABLE_COLUMNS}
           />

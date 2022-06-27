@@ -1,7 +1,7 @@
 import React from "react";
 import { FormInstance, notification } from "antd";
 // import { useAuth } from "context";
-import { GetFaultsQueryParams } from "~/hooks/useGetFaults";
+import { GetFaultsQueryParams, useGetFaults } from "~/hooks/useGetFaults";
 // import { useGetFaultsMetaData } from "~/hooks/useGetFaultsMetaData";
 import { useGetFaultsQueryParams } from "~/hooks/useGetFaultsQueryParams";
 import { covertQueryParamsToFormValues, formatFormDataOnSubmit } from "./utils";
@@ -35,7 +35,7 @@ type useSearchFiltersFormProp = {
  * form behavior is contained in this hook.
  */
 export const useSearchFiltersForm = (props: useSearchFiltersFormProp) => {
-  // const faultsMetaDataInfo = useGetFaultsMetaData();
+  const faultsMetaDataInfo = props.data; //useGetFaultsMetaData();
   // const { currentUser } = useAuth();
   const [urlSearchParamsMap] = useGetFaultsQueryParams();
   const [isSearchFiltersFormOpen, setIsSearchFiltersFormOpen] =
@@ -50,9 +50,9 @@ export const useSearchFiltersForm = (props: useSearchFiltersFormProp) => {
   const formattedFormValuesMap =
     covertQueryParamsToFormValues(urlSearchParamsMap);
 
-  // useGetFaults(faultsQueryParams, true, {
-  //   enabled: isGetFaultsHookEnabled,
-  // });
+  useGetFaults(faultsQueryParams, true, props.data, {
+    enabled: isGetFaultsHookEnabled,
+  });
 
   // if (isMyFaultsSwitchButtonEnabled) {
   //   formattedFormValuesMap.created_by = currentUser.username;
@@ -103,6 +103,7 @@ export const useSearchFiltersForm = (props: useSearchFiltersFormProp) => {
   const handleFormSubmit = (newFaultFormValues: GetFaultsQueryParams) => {
     const formattedNewFaultFormValues =
       formatFormDataOnSubmit(newFaultFormValues);
+    console.log("handle form submit", formattedNewFaultFormValues);
 
     setFaultsQueryParams((prevState) => ({
       ...prevState,

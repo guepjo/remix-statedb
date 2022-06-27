@@ -1,12 +1,14 @@
-import { GetFaultsQueryParams } from 'hooks/useGetFaults';
-import { cloneDeep } from 'lodash';
+import { GetFaultsQueryParams } from "~/hooks/useGetFaults";
+import { cloneDeep } from "lodash";
 
 /**
  * @description
  * This function is used right after the user submits the search filter form.
  * Some values on the forms don't map directly to the URL.
  */
-export const formatFormDataOnSubmit = (onSubmitFormData: GetFaultsQueryParams) => {
+export const formatFormDataOnSubmit = (
+  onSubmitFormData: GetFaultsQueryParams
+) => {
   const formattedFormData = cloneDeep(onSubmitFormData);
 
   /**
@@ -24,9 +26,9 @@ export const formatFormDataOnSubmit = (onSubmitFormData: GetFaultsQueryParams) =
    * We need to set `date_filter` to empty so that in the case we do have a `date_filter`
    * value in the URL already, we can remove it.
    */
-  if (onSubmitFormData.date_filter_by === '') {
-    formattedFormData.date_filter = '';
-  }
+  // if (onSubmitFormData.date_filter_by === '') {
+  //   formattedFormData.date_filter = '';
+  // }
 
   // When a search is made, make sure redirect user to first page of the new search query
   formattedFormData.start_page = 1;
