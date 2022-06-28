@@ -14,6 +14,8 @@ import {
   TableCurrentDataSource,
 } from "antd/lib/table/interface";
 import "./AdvancedTable.css";
+import { useLoaderData } from "@remix-run/react";
+import { LoaderData } from "~/types/data";
 
 type AdvancedTableProps = {
   TableHeader?: React.ReactNode;
@@ -45,6 +47,7 @@ const AdvancedTable = (props: AdvancedTableProps) => {
   const tablePagination = props.tablePagination || false;
   const handleTableChange = props.handleTableChange || undefined;
   const cardProps = props.cardProps || {};
+  const { Employees } = useLoaderData<LoaderData>();
 
   /*
   - Check if the user forgot to include `visible` key inside their columns
@@ -67,7 +70,7 @@ const AdvancedTable = (props: AdvancedTableProps) => {
             className={`advanced-table 'advanced-table-outlined`}
             rowKey={props.rowKey}
             columns={columns.filter((col: any) => col.visible) || []}
-            dataSource={tableData}
+            dataSource={Employees}
             loading={props.loading || false}
             size={props.size || "small"}
             sticky

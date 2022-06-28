@@ -103,7 +103,7 @@ export const useSearchFiltersForm = (props: useSearchFiltersFormProp) => {
   const handleFormSubmit = (newFaultFormValues: GetFaultsQueryParams) => {
     const formattedNewFaultFormValues =
       formatFormDataOnSubmit(newFaultFormValues);
-    console.log("handle form submit", formattedNewFaultFormValues);
+    //console.log("handle form submit", formattedNewFaultFormValues);
 
     setFaultsQueryParams((prevState) => ({
       ...prevState,

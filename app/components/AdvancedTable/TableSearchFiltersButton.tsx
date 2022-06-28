@@ -15,6 +15,8 @@ import { FilterOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 // import { FABRIC_GROUPS, FABRIC_OPTIONS } from 'components/NewFaultsForm/constants';
 import { useSearchFiltersForm } from "~/hooks/useSearchFiltersForm";
 import { formatFormDataOnSubmit } from "~/hooks/useSearchFiltersForm/utils";
+import { useLoaderData } from "@remix-run/react";
+import { LoaderData } from "~/types/data";
 // import { getFMALAPIDocsURL } from "utils";
 // import { TableSearchDateFiltersButton } from './TableSearchDateFiltersButton';
 
@@ -22,24 +24,14 @@ type TableSearchFiltersButtonProps = {
   data: any;
 };
 
-export async function action({ request }) {
-  const form = await request.formData();
-  // const formattedNewFaultFormValues =
-  //   formatFormDataOnSubmit(newFaultFormValues);
-
-  // setFaultsQueryParams((prevState) => ({
-  //   ...prevState,
-  //   ...formattedNewFaultFormValues,
-  // }));
-  // setIsGetFaultsHookEnabled((prevState) => !prevState);
-  // toggleSearchFiltersMenu();
-}
 /**
  * @description
  * A button, which when clicked opens a search filter form.
  */
 const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
   const [form] = Form.useForm();
+  const data = useLoaderData<LoaderData>();
+
   const searchFilterForm = useSearchFiltersForm({
     formInstance: form,
     data: props.data,
@@ -98,9 +90,10 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
           id="new-fault-form"
           onFinish={(formFieldValues) => {
             searchFilterForm.handleFormSubmit(formFieldValues);
+            //searchFilterForm.toggleSearchFiltersMenu();
             console.log("form field avlues", formFieldValues);
           }}
-          //method="post"
+          method="GET"
           validateMessages={validateMessages}
           initialValues={searchFilterForm.DEFAULT_FORM_VALUES}
         >
