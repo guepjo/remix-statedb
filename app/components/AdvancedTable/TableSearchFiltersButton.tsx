@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Button,
   Col,
   Divider,
   Drawer,
-  Form,
   Input,
   Row,
+  Form as AntForm,
   Select,
   Switch,
   Tooltip,
 } from "antd";
+import { Form, useSearchParams } from "@remix-run/react";
 import { FilterOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 // import { FABRIC_GROUPS, FABRIC_OPTIONS } from 'components/NewFaultsForm/constants';
 import { useSearchFiltersForm } from "~/hooks/useSearchFiltersForm";
@@ -29,16 +30,18 @@ type TableSearchFiltersButtonProps = {
  * A button, which when clicked opens a search filter form.
  */
 const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
-  const [form] = Form.useForm();
-  const data = useLoaderData<LoaderData>();
-
+  const [form] = AntForm.useForm();
+  let formRef = useRef<HTMLFormElement>(null);
   const searchFilterForm = useSearchFiltersForm({
     formInstance: form,
-    data: props.data,
+    formRef: formRef,
   });
-  const validateMessages = {
-    required: "${label} is required!",
-  };
+  const [params] = useSearchParams();
+  let isAdding = true;
+  useEffect(() => {
+    formRef.current?.reset();
+    //searchFilterForm.toggleSearchFiltersMenu;
+  }, [isAdding]);
 
   return (
     <>
@@ -59,47 +62,11 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
         data-testid="search-filters-drawer"
         onClose={searchFilterForm.toggleSearchFiltersMenu}
         width={750}
-        extra={
-          <>
-            <Tooltip
-              placement="left"
-              title={
-                <>
-                  {/* <p>
-                    For more information on the permitted <code>statedb-api</code> values, consider viewing the swagger
-                    API documentation page:
-                  </p> */}
-                  {/* <a
-                    href={getFMALAPIDocsURL().url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {getFMALAPIDocsURL().shortText}
-                  </a> */}
-                </>
-              }
-            >
-              <QuestionCircleOutlined style={{ fontSize: 20 }} />
-            </Tooltip>
-          </>
-        }
       >
-        <Form
-          form={form}
-          layout="vertical"
-          id="new-fault-form"
-          onFinish={(formFieldValues) => {
-            searchFilterForm.handleFormSubmit(formFieldValues);
-            //searchFilterForm.toggleSearchFiltersMenu();
-            console.log("form field avlues", formFieldValues);
-          }}
-          method="GET"
-          validateMessages={validateMessages}
-          initialValues={searchFilterForm.DEFAULT_FORM_VALUES}
-        >
+        <Form id="new-fault-form" ref={formRef} method="get">
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
+              <AntForm.Item
                 name="name"
                 label="Name"
                 data-testid="search-filters-name"
@@ -108,12 +75,12 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
                   placeholder="Employee name"
                   name="name"
                   allowClear
-                  defaultValue={searchFilterForm.faultsQueryParams.name}
+                  defaultValue={(params.get("name") as string) || ""}
                 />
-              </Form.Item>
+              </AntForm.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
+              <AntForm.Item
                 name="department"
                 label="Department"
                 data-testid="search-filters-department"
@@ -122,7 +89,7 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
                   placeholder="Select a department"
                   showSearch
                   allowClear
-                  defaultValue={searchFilterForm.faultsQueryParams.department}
+                  defaultValue={(params.get("department") as string) || ""}
                 >
                   {[
                     "Engineering",
@@ -140,12 +107,12 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
                     </Select.Option>
                   ))}
                 </Select>
-              </Form.Item>
+              </AntForm.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
+              <AntForm.Item
                 name="age"
                 label="age"
                 data-testid="search-filters-age"
@@ -163,11 +130,12 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
                   name="age"
                   type="number"
                   allowClear
-                  defaultValue={searchFilterForm.faultsQueryParams.age}
+                  defaultValue={(params.get("age") as string) || ""}
                 />
-              </Form.Item>
+              </AntForm.Item>
             </Col>
           </Row>
+
           <Divider style={{ marginTop: 40 }} />
           <Row
             gutter={16}
@@ -191,7 +159,12 @@ const TableSearchFiltersButton = (props: TableSearchFiltersButtonProps) => {
             >
               Cancel
             </Button>
-            <Button type="primary" htmlType="submit">
+
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={searchFilterForm.toggleSearchFiltersMenu}
+            >
               Submit
             </Button>
           </Row>

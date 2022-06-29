@@ -2,7 +2,7 @@ import { Employees } from "~/types/data";
 
 export async function getEmployees(): Promise<Array<Employees>> {
   return [
-    { name: "Adam", age: 20, department: "Engineering", key: 1 },
+    { name: "Adams", age: 20, department: "Engineering", key: 1 },
     { name: "Ben", age: 40, department: "Engineering", key: 2 },
     { name: "Cal", age: 24, department: "Engineering", key: 3 },
     { name: "Daniela", age: 34, department: "Engineering", key: 4 },

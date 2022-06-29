@@ -1,10 +1,5 @@
 import React from "react";
 import { FormInstance, notification } from "antd";
-// import { useAuth } from "context";
-import { GetFaultsQueryParams, useGetFaults } from "~/hooks/useGetFaults";
-// import { useGetFaultsMetaData } from "~/hooks/useGetFaultsMetaData";
-import { useGetFaultsQueryParams } from "~/hooks/useGetFaultsQueryParams";
-import { covertQueryParamsToFormValues, formatFormDataOnSubmit } from "./utils";
 
 /**
  * @description
@@ -18,7 +13,7 @@ export const DEFAULT_FORM_VALUES = {
 
 type useSearchFiltersFormProp = {
   formInstance: FormInstance<any>;
-  data: any;
+  formRef: React.RefObject<HTMLFormElement>;
 };
 
 /**
@@ -34,44 +29,17 @@ type useSearchFiltersFormProp = {
  * The lifecycle (submit, reset, open, close) and business logic for the
  * form behavior is contained in this hook.
  */
-export const useSearchFiltersForm = (props: useSearchFiltersFormProp) => {
-  const faultsMetaDataInfo = props.data; //useGetFaultsMetaData();
-  // const { currentUser } = useAuth();
-  const [urlSearchParamsMap] = useGetFaultsQueryParams();
+export const useSearchFiltersForm = ({
+  formInstance,
+  formRef,
+}: useSearchFiltersFormProp) => {
   const [isSearchFiltersFormOpen, setIsSearchFiltersFormOpen] =
     React.useState(false);
-  const [isGetFaultsHookEnabled, setIsGetFaultsHookEnabled] =
-    React.useState(false);
-  // const [isMyFaultsSwitchButtonEnabled, setIsMyFaultsSwitchButtonEnabled] =
-  //   React.useState(urlSearchParamsMap.created_by === currentUser.username);
-  const [faultsQueryParams, setFaultsQueryParams] = React.useState(
-    {} as GetFaultsQueryParams
-  );
-  const formattedFormValuesMap =
-    covertQueryParamsToFormValues(urlSearchParamsMap);
 
-  useGetFaults(faultsQueryParams, true, props.data, {
-    enabled: isGetFaultsHookEnabled,
-  });
-
-  // if (isMyFaultsSwitchButtonEnabled) {
-  //   formattedFormValuesMap.created_by = currentUser.username;
-  // }
-  /**
-   * @description
-   * This creates a list of query-param key values that are in a specific
-   * format for usage with Ant's Form API
-   * @example
-   * https://ant.design/components/form/#FormInstance
-   */
-  const formFieldKeyValuePairs = Object.entries(formattedFormValuesMap).map(
-    (formField) => {
-      return {
-        name: formField[0],
-        value: formField[1],
-      };
-    }
-  );
+  React.useEffect(() => {
+    // @ts-ignore
+    window.formInstance = formInstance;
+  }, []);
 
   /**
    * @description
@@ -79,11 +47,11 @@ export const useSearchFiltersForm = (props: useSearchFiltersFormProp) => {
    */
   const clearForm = () => {
     const formFields = Object.keys(DEFAULT_FORM_VALUES);
-
-    props.formInstance.resetFields(formFields);
+    formRef.current?.reset();
     notification.info({
       message: "Cleared form filters",
     });
+    toggleSearchFiltersMenu();
   };
 
   /**
@@ -91,48 +59,14 @@ export const useSearchFiltersForm = (props: useSearchFiltersFormProp) => {
    * This opens/closes the search filter form.
    */
   const toggleSearchFiltersMenu = () => {
-    props.formInstance.resetFields();
-    setIsSearchFiltersFormOpen((prevState) => !prevState);
-    setIsGetFaultsHookEnabled((prevState) => !prevState);
+    formInstance.resetFields();
+    setIsSearchFiltersFormOpen(!isSearchFiltersFormOpen);
   };
-
-  /**
-   * @description
-   * This is called when the form's submit event is triggered.
-   */
-  const handleFormSubmit = (newFaultFormValues: GetFaultsQueryParams) => {
-    const formattedNewFaultFormValues =
-      formatFormDataOnSubmit(newFaultFormValues);
-    //console.log("handle form submit", formattedNewFaultFormValues);
-
-    setFaultsQueryParams((prevState) => ({
-      ...prevState,
-      ...formattedNewFaultFormValues,
-    }));
-    setIsGetFaultsHookEnabled((prevState) => !prevState);
-    toggleSearchFiltersMenu();
-  };
-
-  /**
-   * @description
-   * Prepopulate the form fields with the corresponding query param
-   * values that were passed in the URL.
-   */
-  props.formInstance.setFields(formFieldKeyValuePairs);
 
   return {
     isSearchFiltersFormOpen,
-    setIsSearchFiltersFormOpen,
-    isGetFaultsHookEnabled,
-    setIsGetFaultsHookEnabled,
-    // isMyFaultsSwitchButtonEnabled,
-    // setIsMyFaultsSwitchButtonEnabled,
     toggleSearchFiltersMenu,
-    faultsQueryParams,
-    setFaultsQueryParams,
     clearForm,
-    // currentUser,
-    handleFormSubmit,
     autocompleteList: {
       // applications: faultsMetaDataInfo.data?.applications || [],
       // checkIds: faultsMetaDataInfo.data?.checkIds || [],
